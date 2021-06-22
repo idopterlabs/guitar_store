@@ -16,6 +16,7 @@ config :guitar_store, GuitarStore.Repo,
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :guitar_store, GuitarStoreWeb.Endpoint,
+  server: true,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,

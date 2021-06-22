@@ -1,0 +1,30 @@
+<h1>Listing Guitars</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Year</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for guitar <- @guitars do %>
+    <tr>
+      <td><%= guitar.make %></td>
+      <td><%= guitar.model %></td>
+      <td><%= guitar.year %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.guitar_path(@conn, :show, guitar) %></span>
+        <span><%= link "Edit", to: Routes.guitar_path(@conn, :edit, guitar) %></span>
+        <span><%= link "Delete", to: Routes.guitar_path(@conn, :delete, guitar), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Guitar", to: Routes.guitar_path(@conn, :new) %></span>

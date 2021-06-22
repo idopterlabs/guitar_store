@@ -1,0 +1,23 @@
+<h1>Show Guitar</h1>
+
+<ul>
+
+  <li>
+    <strong>Make:</strong>
+    <%= @guitar.make %>
+  </li>
+
+  <li>
+    <strong>Model:</strong>
+    <%= @guitar.model %>
+  </li>
+
+  <li>
+    <strong>Year:</strong>
+    <%= @guitar.year %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.guitar_path(@conn, :edit, @guitar) %></span>
+<span><%= link "Back", to: Routes.guitar_path(@conn, :index) %></span>

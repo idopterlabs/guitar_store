@@ -2,10 +2,23 @@
 #
 #     mix run priv/repo/seeds.exs
 #
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     GuitarStore.Repo.insert!(%GuitarStore.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+
+alias GuitarStore.Inventory
+
+Inventory.create_guitar(%{
+  make: "Gibson",
+  model: "Les Paul",
+  year: 1968
+})
+
+Inventory.create_guitar(%{
+  make: "Fender",
+  model: "Stratocaster",
+  year: 1997
+})
+
+Inventory.create_guitar(%{
+  make: "Solar",
+  model: "AT1.6B",
+  year: 2021
+})

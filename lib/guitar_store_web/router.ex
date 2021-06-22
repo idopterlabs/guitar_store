@@ -16,7 +16,8 @@ defmodule GuitarStoreWeb.Router do
   scope "/", GuitarStoreWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", GuitarController, :index
+    resources "/guitars", GuitarController
   end
 
   # Other scopes may use custom stacks.

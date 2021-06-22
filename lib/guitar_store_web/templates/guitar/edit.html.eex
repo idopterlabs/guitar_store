@@ -1,0 +1,5 @@
+<h1>Edit Guitar</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.guitar_path(@conn, :update, @guitar)) %>
+
+<span><%= link "Back", to: Routes.guitar_path(@conn, :index) %></span>
