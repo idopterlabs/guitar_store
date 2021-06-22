@@ -5,7 +5,7 @@ defmodule GuitarStore.MixProject do
     [
       app: :guitar_store,
       version: "0.1.0",
-      elixir: "~> 1.7",
+      elixir: "~> 1.8.1",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
