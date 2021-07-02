@@ -6,6 +6,7 @@ defmodule GuitarStore.Inventory.Guitar do
     field :make, :string
     field :model, :string
     field :year, :integer
+    field :is_custom_shop, :boolean, default: false
 
     timestamps()
   end

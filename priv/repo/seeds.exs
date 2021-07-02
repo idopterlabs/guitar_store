@@ -12,9 +12,21 @@ Inventory.create_guitar(%{
 })
 
 Inventory.create_guitar(%{
+  make: "Gibson",
+  model: "SG",
+  year: 1999
+})
+
+Inventory.create_guitar(%{
   make: "Fender",
   model: "Stratocaster",
   year: 1997
+})
+
+Inventory.create_guitar(%{
+  make: "Fender",
+  model: "Telecaster",
+  year: 2020
 })
 
 Inventory.create_guitar(%{

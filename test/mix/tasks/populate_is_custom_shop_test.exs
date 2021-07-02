@@ -1,0 +1,41 @@
+defmodule Mix.Tasks.PopulateIsCustomShopTest do
+  use GuitarStore.DataCase
+
+  alias Mix.Tasks.PopulateIsCustomShop
+  alias GuitarStore.Utils
+
+  alias GuitarStore.Inventory
+
+  @custom_shop_entries Utils.custom_shop_entries()
+
+  test "populates custom shop field" do
+    # Create 1 custom shop with flag false
+    [custom_shop_data | _] = @custom_shop_entries
+    {make, model, year} = custom_shop_data
+
+    {:ok, custom} =
+      Inventory.create_guitar(%{
+        make: make,
+        model: model,
+        year: year
+      })
+
+    # Create 1 non-custom shop with flag false
+    {:ok, non_custom} =
+      Inventory.create_guitar(%{
+        make: "#{make}-non-custom",
+        model: model,
+        year: year
+      })
+
+    # Run task
+    PopulateIsCustomShop.run([])
+
+    # custom shop should have flag true
+    custom = Inventory.get_guitar!(custom.id)
+    assert custom.is_custom_shop
+    # non-custom shop should have flag false
+    non_custom = Inventory.get_guitar!(non_custom.id)
+    refute non_custom.is_custom_shop
+  end
+end
