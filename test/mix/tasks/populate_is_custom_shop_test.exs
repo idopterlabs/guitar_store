@@ -10,8 +10,7 @@ defmodule Mix.Tasks.PopulateIsCustomShopTest do
 
   test "populates custom shop field" do
     # Create 1 custom shop with flag false
-    [custom_shop_data | _] = @custom_shop_entries
-    {make, model, year} = custom_shop_data
+    [{make, model, year} | _] = @custom_shop_entries
 
     {:ok, custom} =
       Inventory.create_guitar(%{
