@@ -20,6 +20,7 @@ defmodule GuitarStoreWeb do
   def controller do
     quote do
       use Phoenix.Controller, namespace: GuitarStoreWeb
+      use GuitarStore.Tracer.ModuleTracer
 
       import Plug.Conn
       import GuitarStoreWeb.Gettext

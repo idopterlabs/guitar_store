@@ -21,10 +21,19 @@ config :guitar_store, GuitarStoreWeb.Endpoint,
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
+  metadata: [:request_id, :trace_id, :span_id]
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+config :spandex, :decorators, tracer: GuitarStore.Tracer
+config :spandex_phoenix, tracer: GuitarStore.Tracer
+
+config :guitar_store, GuitarStore.Tracer,
+  adapter: SpandexDatadog.Adapter,
+  service: :"guitar-store",
+  type: :web,
+  disabled?: false
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

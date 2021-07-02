@@ -33,6 +33,8 @@ defmodule GuitarStore.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:decorator, "~> 1.2"},
+      {:httpoison, "~> 1.8"},
       {:phoenix, "~> 1.5.9"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
@@ -40,6 +42,8 @@ defmodule GuitarStore.MixProject do
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_dashboard, "~> 0.4"},
+      {:spandex_datadog, "~> 1.1"},
+      {:spandex_phoenix, "~> 1.0.5"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},

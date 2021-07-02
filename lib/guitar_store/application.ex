@@ -7,6 +7,7 @@ defmodule GuitarStore.Application do
 
   def start(_type, _args) do
     children = [
+      {SpandexDatadog.ApiServer, spandex_datadog_opts()},
       # Start the Ecto repository
       GuitarStore.Repo,
       # Start the Telemetry supervisor
@@ -19,10 +20,22 @@ defmodule GuitarStore.Application do
       # {GuitarStore.Worker, arg}
     ]
 
+    SpandexPhoenix.Telemetry.install()
+
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: GuitarStore.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  defp spandex_datadog_opts do
+    [
+      host: "localhost",
+      port: 8126,
+      batch_size: 10,
+      sync_threshold: 10,
+      http: HTTPoison
+    ]
   end
 
   # Tell Phoenix to update the endpoint configuration
