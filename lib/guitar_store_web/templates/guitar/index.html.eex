@@ -6,6 +6,7 @@
       <th>Make</th>
       <th>Model</th>
       <th>Year</th>
+      <th>Custom shop ?</th>
 
       <th></th>
     </tr>
@@ -16,6 +17,7 @@
       <td><%= guitar.make %></td>
       <td><%= guitar.model %></td>
       <td><%= guitar.year %></td>
+      <td><%= guitar.is_custom_shop %></td>
 
       <td>
         <span><%= link "Show", to: Routes.guitar_path(@conn, :show, guitar) %></span>

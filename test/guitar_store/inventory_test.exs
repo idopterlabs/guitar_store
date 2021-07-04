@@ -34,6 +34,11 @@ defmodule GuitarStore.InventoryTest do
       assert guitar.make == "some make"
       assert guitar.model == "some model"
       assert guitar.year == 42
+
+      as_custom_shop = @valid_attrs |> Map.put(:is_custom_shop, true)
+      assert {:ok, %Guitar{} = guitar} = Inventory.create_guitar(as_custom_shop)
+
+      assert guitar.is_custom_shop
     end
 
     test "create_guitar/1 with invalid data returns error changeset" do

@@ -17,6 +17,11 @@
     <%= @guitar.year %>
   </li>
 
+  <li>
+    <strong>Custom shop ?</strong>
+    <%= @guitar.is_custom_shop %>
+  </li>
+
 </ul>
 
 <span><%= link "Edit", to: Routes.guitar_path(@conn, :edit, @guitar) %></span>
