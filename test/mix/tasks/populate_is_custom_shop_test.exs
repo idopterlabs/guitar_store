@@ -27,6 +27,9 @@ defmodule Mix.Tasks.PopulateIsCustomShopTest do
         year: year
       })
 
+    refute custom.is_custom_shop
+    refute non_custom.is_custom_shop
+
     # Run task
     PopulateIsCustomShop.run([])
 
