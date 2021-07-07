@@ -1,4 +1,8 @@
 defmodule Mix.Tasks.PopulateIsCustomShop do
+  @moduledoc """
+  This task populates the is_custom_shop column
+  in the database for existing records
+  """
   @shortdoc "Populates is_custom_shop column"
 
   use Mix.Task
