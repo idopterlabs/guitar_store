@@ -20,7 +20,7 @@ defmodule GuitarStore.MixProject do
   def application do
     [
       mod: {GuitarStore.Application, []},
-      extra_applications: [:logger, :runtime_tools, :ssl]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
