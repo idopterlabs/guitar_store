@@ -12,8 +12,7 @@ RUN mix local.hex --force && \
 
 # set build ENV
 ENV MIX_ENV=prod
-ARG DATABASE_URL
-ARG SECRET_KEY_BASE
+ENV IS_LOCAL=${IS_LOCAL:-false}
 
 # install mix dependencies
 COPY mix.exs mix.lock ./
@@ -26,19 +25,24 @@ RUN npm --prefix ./assets ci --progress=false --no-audit --loglevel=error
 
 COPY priv priv
 COPY assets assets
+
 RUN npm run --prefix ./assets deploy
 RUN mix phx.digest
 
-# compile and build release
 COPY lib lib
-# uncomment COPY if rel/ exists
-# COPY rel rel
+
+# Needed for the startup script env.sh.eex
+COPY rel rel
+
 RUN mix do compile, release
 
-# prepare release image
+# Prepare Release image
 FROM alpine:3.9 AS app
 RUN apk add --no-cache openssl ncurses-libs
-
+##
+## Adds telnet and curl, useful for debugging
+## RUN apk add busybox-extras curl
+##
 WORKDIR /app
 
 RUN chown nobody:nobody /app
@@ -50,3 +54,4 @@ COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/guitar_store ./
 ENV HOME=/app
 
 CMD ["bin/guitar_store", "start"]
+#CMD ["tail", "-f", "/dev/null"]

@@ -12,6 +12,7 @@ config :guitar_store,
 
 # Configures the endpoint
 config :guitar_store, GuitarStoreWeb.Endpoint,
+  server: true,
   url: [host: "localhost"],
   secret_key_base: "F6maxWzkVxdiaUPyghSJOPW5ME0h0KIhc1qSsGCbYDEbPyNtdManhgu34OqVwHs0",
   render_errors: [view: GuitarStoreWeb.ErrorView, accepts: ~w(html json), layout: false],
