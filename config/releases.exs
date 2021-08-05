@@ -1,23 +1,14 @@
 import Config
 
-database_url =
-  System.get_env("DATABASE_URL") ||
-    raise """
-    environment variable DATABASE_URL is missing.
-    For example: ecto://USER:PASS@HOST/DATABASE
-    """
-
 config :guitar_store, GuitarStore.Repo,
-  ssl: true,
-  url: database_url,
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+  username: "postgres",
+  password: "postgres",
+  database: "guitar_store_dev",
+  hostname: "postgres",
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
 
-secret_key_base =
-  System.get_env("SECRET_KEY_BASE") ||
-    raise """
-    environment variable SECRET_KEY_BASE is missing.
-    You can generate one by calling: mix phx.gen.secret
-    """
+secret_key_base = "F6maxWzkVxdiaUPyghSJOPW5ME0h0KIhc1qSsGCbYDEbPyNtdManhgu34OqVwHs0"
 
 config :guitar_store, GuitarStoreWeb.Endpoint,
   http: [

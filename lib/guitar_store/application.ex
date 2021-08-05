@@ -30,7 +30,7 @@ defmodule GuitarStore.Application do
 
   defp spandex_datadog_opts do
     [
-      host: "localhost",
+      host: "datadog",
       port: 8126,
       batch_size: 10,
       sync_threshold: 10,

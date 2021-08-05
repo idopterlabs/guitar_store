@@ -4,17 +4,23 @@ defmodule GuitarStoreWeb.GuitarController do
   alias GuitarStore.Inventory
   alias GuitarStore.Inventory.Guitar
 
+  require Logger
+
   def index(conn, _params) do
+    Logger.info("Listing guitars")
     guitars = Inventory.list_guitars()
     render(conn, "index.html", guitars: guitars)
   end
 
   def new(conn, _params) do
+    Logger.warn("New guitars")
     changeset = Inventory.change_guitar(%Guitar{})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"guitar" => guitar_params}) do
+    Logger.debug("Creating guitar #{inspect(guitar_params)}")
+
     case Inventory.create_guitar(guitar_params) do
       {:ok, guitar} ->
         conn
@@ -22,11 +28,13 @@ defmodule GuitarStoreWeb.GuitarController do
         |> redirect(to: Routes.guitar_path(conn, :show, guitar))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        Logger.error("Error creating new guitar #{inspect(changeset)}")
         render(conn, "new.html", changeset: changeset)
     end
   end
 
   def show(conn, %{"id" => id}) do
+    Logger.info("Showing guitar #{id}")
     guitar = Inventory.get_guitar!(id)
     render(conn, "show.html", guitar: guitar)
   end

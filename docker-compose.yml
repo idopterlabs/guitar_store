@@ -1,11 +1,42 @@
-version: '2'
+version: "2"
 services:
+  app:
+    depends_on:
+      - postgres
+      - datadog
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "app", "service": "guitar-store"}]'
+
+  postgres:
+    image: postgres:10
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=guitar_store_dev
+    ports:
+      - 5432:5432
+
   datadog:
     image: datadog/agent:latest
     environment:
-      DD_APM_ENABLED: 'true'
-      DD_APM_NON_LOCAL_TRAFFIC: 'true'
-      DD_LOG_LEVEL: 'info'
+      DD_LOGS_ENABLED: "true"
+      DD_APM_ENABLED: "true"
+      DD_APM_NON_LOCAL_TRAFFIC: "true"
+      DD_LOG_LEVEL: "info"
+      DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL: "true"
+      DD_LOGS_CONFIG_DOCKER_CONTAINER_USE_FILE: "true"
+      DD_CONTAINER_EXCLUDE: "name:datadog"
       DD_API_KEY:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /proc/:/host/proc/:ro
+      - /opt/datadog/run:/opt/datadog/run:rw
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
     ports:
-      - '8125-8126:8125-8126'
+      - "8125-8126:8125-8126"
