@@ -1,20 +1,15 @@
 FROM elixir:1.9.4-alpine AS build
 
-# install build dependencies
 RUN apk add --no-cache build-base npm git python3
-
-# prepare build dir
 WORKDIR /app
-
-# install hex + rebar
 RUN mix local.hex --force && \
     mix local.rebar --force
 
-# set build ENV
+##
+## Must be present during buildtime
+##
 ENV MIX_ENV=prod
-ENV IS_LOCAL=${IS_LOCAL:-false}
 
-# install mix dependencies
 COPY mix.exs mix.lock ./
 COPY config config
 RUN mix do deps.get, deps.compile
@@ -29,14 +24,18 @@ COPY assets assets
 RUN npm run --prefix ./assets deploy
 RUN mix phx.digest
 
-COPY lib lib
-
-# Needed for the startup script env.sh.eex
+##
+## Needed for the startup script env.sh.eex
+##
 COPY rel rel
 
-RUN mix do compile, release
+COPY lib lib
 
-# Prepare Release image
+RUN mix do compile --warning-as-errors, release
+
+##
+## Release image
+##
 FROM alpine:3.9 AS app
 RUN apk add --no-cache openssl ncurses-libs
 ##
@@ -53,5 +52,10 @@ COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/guitar_store ./
 
 ENV HOME=/app
 
+EXPOSE 4000
+
 CMD ["bin/guitar_store", "start"]
-#CMD ["tail", "-f", "/dev/null"]
+##
+## Useful for debugging purposes.
+## This command keeps the process up and running.
+## CMD ["tail", "-f", "/dev/null"]

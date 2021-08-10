@@ -8,9 +8,14 @@ services:
       dockerfile: Dockerfile
     env_file: .env
     environment:
-      - SECRET_KEY_BASE
-      - DATABASE_URL=postgres://postgres:postgres@postgres/guitar_store_dev
+      # RUNTIME ONLY
       - IS_LOCAL=true
+      - SECRET_KEY_BASE
+      - APPLICATION_PROTOCOL=http
+      - APPLICATION_HOST=localhost
+      - PORT=4000
+      ## Points to container database
+      - DATABASE_URL=postgres://postgres:postgres@postgres/guitar_store_dev
     ports:
       - 4000:4000
 
