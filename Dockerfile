@@ -31,7 +31,7 @@ COPY rel rel
 
 COPY lib lib
 
-RUN mix do compile --warning-as-errors, release
+RUN mix do compile --warnings-as-errors, release
 
 ##
 ## Release image
