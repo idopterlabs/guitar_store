@@ -26,10 +26,19 @@ secret_key_base =
 
 application_port = String.to_integer(System.fetch_env!("PORT"))
 
+host =
+  System.get_env("APPLICATION_HOST") ||
+    raise """
+    Missing APPLICATION_HOST.
+    This value should be the hostname of the Heroku dyno.
+    For example: funny-name.herokuapp.com
+    DO NOT FORGET the "herokuapp.com" portion
+    """
+
 config :guitar_store, GuitarStoreWeb.Endpoint,
   url: [
     scheme: System.get_env("APPLICATION_PROTOCOL", "https"),
-    host: System.get_env("APPLICATION_HOST", "safe-lake-80313.herokuapp.com"),
+    host: host,
     port: application_port
   ],
   http: [
