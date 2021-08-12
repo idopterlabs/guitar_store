@@ -17,6 +17,9 @@
   <%= number_input f, :year %>
   <%= error_tag f, :year %>
 
+  <%= label f, :is_custom_shop %>
+  <%= checkbox f, :is_custom_shop %>
+
   <div>
     <%= submit "Save" %>
   </div>
