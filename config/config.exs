@@ -38,3 +38,28 @@ config :guitar_store, GuitarStore.Tracer,
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
+
+# base_opts = [
+#   adapter: SpandexDatadog.Adapter,
+#   strategy: Spandex.Strategy.Pdict,
+#   env: "prod"
+# ]
+
+# span_opts = [
+#   service: :"guitar-store",
+#   resource: "Inventory.list_available_guitars()"
+# ]
+
+# opts = base_opts ++ span_opts
+
+# GuitarStore.Tracer.start_trace("listing global inventory for sale", opts)
+# GuitarStore.Tracer.current_span(base_opts)
+# GuitarStore.Tracer.start_span("listing_guitars", span_opts)
+# GuitarStore.Tracer.finish_span(base_opts)
+# GuitarStore.Tracer.start_span("checking against others stores", span_opts)
+# GuitarStore.Tracer.start_span("checking against others stores 2", span_opts)
+# GuitarStore.Tracer.finish_span(base_opts)
+# GuitarStore.Tracer.finish_span(base_opts)
+# GuitarStore.Tracer.start_span("checking against police database", span_opts)
+# GuitarStore.Tracer.finish_span(base_opts)
+# GuitarStore.Tracer.finish_trace()

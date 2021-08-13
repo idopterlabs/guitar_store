@@ -9,6 +9,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "4000:4000"
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@postgres/guitar_store_dev
     labels:
       com.datadoghq.ad.logs: '[{"source": "app", "service": "guitar-store"}]'
 
