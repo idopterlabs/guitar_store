@@ -5,7 +5,7 @@
 # is restricted to this project.
 
 # General application configuration
-use Mix.Config
+import Mix.Config
 
 config :guitar_store,
   ecto_repos: [GuitarStore.Repo]
